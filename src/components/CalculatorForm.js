@@ -9,27 +9,27 @@ class CalculatorForm extends React.Component {
   };
 
   handleSoldPriceChange = (evt) => {
-    this.setState({ soldPrice: parseFloat(evt.target.value) });
+    this.setState({ soldPrice: evt.target.value });
   };
 
   handleShipChargeChange = (evt) => {
-    this.setState({ shipCharge: parseFloat(evt.target.value) });
+    this.setState({ shipCharge: evt.target.value });
   };
 
   handleShipCostChange = (evt) => {
-    this.setState({ shipCost: parseFloat(evt.target.value) });
+    this.setState({ shipCost: evt.target.value });
   };
 
   handleItemCostChange = (evt) => {
-    this.setState({ itemCost: parseFloat(evt.target.value) });
+    this.setState({ itemCost: evt.target.value });
   };
 
   handleSubmit = () => {
     this.props.onFormSubmit({
-      soldPrice: this.state.soldPrice,
-      shipCharge: this.state.shipCharge,
-      shipCost: this.state.shipCost,
-      itemCost: this.state.itemCost,
+      soldPrice: parseFloat(this.state.soldPrice),
+      shipCharge: parseFloat(this.state.shipCharge),
+      shipCost: parseFloat(this.state.shipCost),
+      itemCost: parseFloat(this.state.itemCost),
     });
   };
 
