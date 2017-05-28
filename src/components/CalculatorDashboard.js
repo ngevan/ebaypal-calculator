@@ -14,29 +14,17 @@ class CalculatorDashboard extends React.Component {
   };
 
   handleFormSubmit = (listing) => {
-    this.calculateEbayFee(listing);
-    this.calculatePaypalFee(listing);
     this.calculateNetProfit(listing);
   };
 
-  calculateEbayFee = (listing) => {
-    let ebayFee = parseFloat((listing.soldPrice * 0.1) + (listing.shipCharge * 0.1)).toFixed(2);
+  calculateNetProfit = (listing) => {
+    let grossRevenue = listing.soldPrice + listing.shipCharge - listing.shipCost - listing.itemCost;
+    let ebayFee = ((listing.soldPrice * 0.1) + (listing.shipCharge * 0.1)).toFixed(2);
+    let paypalFee = (((listing.soldPrice + listing.shipCharge) * 0.029) + 0.30).toFixed(2);
+    let netProfit = (grossRevenue - ebayFee - paypalFee).toFixed(2);
     this.setState({
       ebayFee: ebayFee,
-    });
-  };
-
-  calculatePaypalFee = (listing) => {
-    let paypalFee = parseFloat(((listing.soldPrice + listing.shipCharge) * 0.029) + 0.30).toFixed(2);
-    this.setState({
       paypalFee: paypalFee,
-    });
-  };
-
-  calculateNetProfit = (listing) => {
-    let grossRevenue = parseFloat(listing.soldPrice + listing.shipCharge - listing.shipCost - listing.itemCost);
-    let netProfit = parseFloat(grossRevenue - this.state.ebayFee - this.state.paypalFee).toFixed(2);
-    this.setState({
       netProfit: netProfit,
     });
   };
