@@ -7,7 +7,7 @@ import './semantic-ui/semantic.min.css';
 class App extends Component {
   render() {
     return (
-      <div className=''>
+      <div className='ui text container'>
         <Header />
         <CalculatorDashboard />
       </div>

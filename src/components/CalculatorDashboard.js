@@ -31,8 +31,8 @@ class CalculatorDashboard extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>
+      <div className='ui three column centered grid'>
+        <div className='column'>
           <CalculatorForm
             soldPrice={this.state.soldPrice}
             shipCharge={this.state.shipCharge}

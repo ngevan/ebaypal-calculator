@@ -35,41 +35,46 @@ class CalculatorForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>
-          <label>Sold Price: </label>
+      <div className='ui form'>
+        <div className='field'>
+          <label>Sold Price:</label>
           <input
             type='text'
             value={this.state.soldPrice}
             onChange={this.handleSoldPriceChange}
+            placeholder='$'
           />
         </div>
-        <div>
-          <label>Shipping Charge: </label>
+        <div className='field'>
+          <label>Shipping Charge:</label>
           <input
             type='text'
             value={this.state.shipCharge}
             onChange={this.handleShipChargeChange}
+            placeholder='$'
           />
         </div>
-        <div>
-          <label>Shipping Cost: </label>
+        <div className='field'>
+          <label>Shipping Cost:</label>
           <input
             type='text'
             value={this.state.shipCost}
             onChange={this.handleShipCostChange}
+            placeholder='$'
           />
         </div>
-        <div>
-          <label>Item Original Cost: </label>
+        <div className='field'>
+          <label>Item Original Cost:</label>
           <input
             type='text'
             value={this.state.itemCost}
             onChange={this.handleItemCostChange}
+            placeholder='$'
           />
         </div>
 
         <button
+          className='ui blue submit button'
           onClick={this.handleSubmit}
         >
           Calculate
