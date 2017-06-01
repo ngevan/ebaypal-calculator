@@ -2,7 +2,7 @@
 
 A calculator that shows the net profit after eBay and PayPal take their share. To use this app, run `yarn` and then `yarn start`. Or just visit the link below.
 
-[eBayPal Calculator](link here)
+[eBayPal Calculator](https://ebaypal-calculator.herokuapp.com)
 
 The fees calculated have been updated to reflect changes as of May 2017.
 
