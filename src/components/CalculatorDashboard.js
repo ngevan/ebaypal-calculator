@@ -4,10 +4,12 @@ import CalculatorResult from './CalculatorResult';
 
 class CalculatorDashboard extends React.Component {
   state = {
-    soldPrice: 0,
-    shipCharge: 0,
-    shipCost: 0,
-    itemCost: 0,
+    fields: {
+      soldPrice: 0,
+      shipCharge: 0,
+      shipCost: 0,
+      itemCost: 0,
+    },
     ebayFee: 0,
     paypalFee: 0,
     netProfit: 0,
@@ -34,10 +36,10 @@ class CalculatorDashboard extends React.Component {
       <div className='ui three column centered grid'>
         <div className='column'>
           <CalculatorForm
-            soldPrice={this.state.soldPrice}
-            shipCharge={this.state.shipCharge}
-            shipCost={this.state.shipCost}
-            itemCost={this.state.itemCost}
+            soldPrice={this.state.fields.soldPrice}
+            shipCharge={this.state.fields.shipCharge}
+            shipCost={this.state.fields.shipCost}
+            itemCost={this.state.fields.itemCost}
             onFormSubmit={this.handleFormSubmit}
           />
 
