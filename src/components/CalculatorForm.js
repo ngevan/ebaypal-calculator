@@ -1,87 +1,109 @@
 import React from 'react';
+import CalculatorField from './CalculatorField';
 
 class CalculatorForm extends React.Component {
   state = {
-    soldPrice: this.props.soldPrice || '',
-    shipCharge: this.props.shipCharge || '',
-    shipCost: this.props.shipCost || '',
-    itemCost: this.props.itemCost || '',
+    fields: {
+      soldPrice: this.props.soldPrice || '',
+      shipCharge: this.props.shipCharge || '',
+      shipCost: this.props.shipCost || '',
+      itemCost: this.props.itemCost || '',
+    },
+    fieldErrors: {}
   };
 
-  handleSoldPriceChange = (evt) => {
-    this.setState({ soldPrice: evt.target.value });
-  };
+  onFormSubmit = (e) => {
+    const inputs = this.state.fields;
+    e.preventDefault();
 
-  handleShipChargeChange = (evt) => {
-    this.setState({ shipCharge: evt.target.value });
-  };
+    if (this.validate()) return;
 
-  handleShipCostChange = (evt) => {
-    this.setState({ shipCost: evt.target.value });
-  };
-
-  handleItemCostChange = (evt) => {
-    this.setState({ itemCost: evt.target.value });
-  };
-
-  handleSubmit = () => {
     this.props.onFormSubmit({
-      soldPrice: parseFloat(this.state.soldPrice),
-      shipCharge: parseFloat(this.state.shipCharge),
-      shipCost: parseFloat(this.state.shipCost),
-      itemCost: parseFloat(this.state.itemCost),
+      soldPrice: parseFloat(inputs.soldPrice),
+      shipCharge: parseFloat(inputs.shipCharge),
+      shipCost: parseFloat(inputs.shipCost),
+      itemCost: parseFloat(inputs.itemCost),
     });
   };
 
-  render() {
-    return (
-      <div className='ui form'>
-        <div className='field'>
-          <label>Sold Price:</label>
-          <input
-            type='text'
-            value={this.state.soldPrice}
-            onChange={this.handleSoldPriceChange}
-            placeholder='$'
-          />
-        </div>
-        <div className='field'>
-          <label>Shipping Charge:</label>
-          <input
-            type='text'
-            value={this.state.shipCharge}
-            onChange={this.handleShipChargeChange}
-            placeholder='$'
-          />
-        </div>
-        <div className='field'>
-          <label>Shipping Cost:</label>
-          <input
-            type='text'
-            value={this.state.shipCost}
-            onChange={this.handleShipCostChange}
-            placeholder='$'
-          />
-        </div>
-        <div className='field'>
-          <label>Item Original Cost:</label>
-          <input
-            type='text'
-            value={this.state.itemCost}
-            onChange={this.handleItemCostChange}
-            placeholder='$'
-          />
-        </div>
+  onInputChange = ({ name, value, error }) => {
+    const fields = this.state.fields;
+    const fieldErrors = this.state.fieldErrors;
 
-        <button
-          className='ui blue submit button'
-          onClick={this.handleSubmit}
-        >
-          Calculate
-        </button>
+    fields[name] = value;
+    fieldErrors[name] = error;
+
+    this.setState({
+      fields: fields,
+      fieldErrors: fieldErrors
+    });
+  };
+
+  validate = () => {
+    const inputs = this.state.fields;
+    const fieldErrors = this.state.fieldErrors;
+    const errorMessages = Object.keys(fieldErrors).filter( (key) => fieldErrors[key]);
+
+    if (!inputs.soldPrice) return true;
+    if (!inputs.shipCharge) return true;
+    if (!inputs.shipCost) return true;
+    if (!inputs.itemCost) return true;
+    if (errorMessages.length) return true;
+
+    return false;
+  };
+
+
+  render() {
+    return(
+      <div className='ui form'>
+        <form onSubmit={this.onFormSubmit}>
+          <b>Sold Price</b>
+          <CalculatorField
+            placeholder='$'
+            name='soldPrice'
+            value={this.state.fields.soldPrice}
+            onChange={this.onInputChange}
+            validate={(value) => ( value ? false : 'Sold Price Required')}
+          />
+
+          <b>Shipping Charge</b>
+          <CalculatorField
+            placeholder='$'
+            name='shipCharge'
+            value={this.state.fields.shipCharge}
+            onChange={this.onInputChange}
+            validate={(value) => ( value ? false : 'Shipping Charge Required')}
+          />
+
+          <b>Shipping Cost</b>
+          <CalculatorField
+            placeholder='$'
+            name='shipCost'
+            value={this.state.fields.shipCost}
+            onChange={this.onInputChange}
+            validate={(value) => ( value ? false : 'Shipping Cost Required')}
+          />
+
+          <b>Item Original Cost</b>
+          <CalculatorField
+            placeholder='$'
+            name='itemCost'
+            value={this.state.fields.itemCost}
+            onChange={this.onInputChange}
+            validate={(value) => ( value ? false : 'Item Cost Required')}
+          />
+
+          <button
+            className='ui blue submit button'
+            disabled={this.validate()}
+          >
+            Calculate
+          </button>
+        </form>
       </div>
     );
   }
-}
+};
 
 export default CalculatorForm;
